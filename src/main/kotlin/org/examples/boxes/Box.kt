@@ -18,8 +18,9 @@ class Box (
         val descripcion = when (estadoActual) {
             EstadoBox.Libre -> "Libre"
 
-            is EstadoBox.EnAtencion -> "En atencion ${estadoActual.paciente.nombre}"+
-                    "${estadoActual.paciente.codigoAtencion})"
+            is EstadoBox.EnAtencion ->
+                "En atencion ${estadoActual.paciente.nombre}" +
+                "${estadoActual.paciente.codigoAtencion})"
 
             is EstadoBox.EnProceso -> "En proceso: ${estadoActual.motivo}"
 
