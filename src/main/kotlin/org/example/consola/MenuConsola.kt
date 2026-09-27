@@ -29,7 +29,6 @@ object MenuConsola {
             println("--- Menu Principal ---")
             println("1. Registrar entrada")
             println("2. Registrar salida")
-            println("2. Registrar salida")
             println("3. Mostrar boxes")
             println("4. Consultar turno")
             println("0. Cerrar turno")
@@ -53,7 +52,7 @@ object MenuConsola {
                     }
 
                     "2" -> {
-                        val codigo = leerTexto("Código de atencion:")
+                        val codigo = leerTexto("codigo de atencion:")
                             .uppercase()
 
                         val minutos = leerTexto(
@@ -166,7 +165,7 @@ object MenuConsola {
     }
 
     private suspend fun solicitarTipoDueno(): TipoDueno {
-        println("Tipo de dueño:")
+        println("Tipo de dueno:")
         println("1. Particular")
         println("2. Convenio")
         println("3. Municipal")
@@ -176,7 +175,7 @@ object MenuConsola {
             "2" -> "Convenio"
             "3" -> "Municipal"
             else -> throw IllegalArgumentException(
-                "El tipo de dueño no es valido."
+                "El tipo de dueno no es valido."
             )
         }
 
