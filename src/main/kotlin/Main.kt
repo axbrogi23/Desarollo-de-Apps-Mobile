@@ -4,8 +4,12 @@ import java.time.LocalDateTime
 
 import org.example.boxes.Box
 import org.example.boxes.EstadoBox
+import org.example.boxes.GestorBoxes
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.launch
+import org.example.reportes.TurnoReporte
 
-fun main() {
+fun main() = runBlocking {
     try {
         val paciente = Canino(
             codigoAtencion = "CA12CD", //codigo de la atencion
@@ -89,6 +93,50 @@ fun main() {
             motivo = "Mantenimiento del sistema"
         )
         println(PruebaBox.obtenerDetalle())
+
+        println("---Gestion de los 10 boxes---")
+
+        val gestor = GestorBoxes()
+
+        gestor.mostrarBoxes()
+        println("Boxes disponibles: ${gestor.disponibilidades()}")
+
+        val disponible = gestor.buscarPrimerLibre()
+
+        if (disponible != null) {
+            println("Primero box libre: ${disponible.numero}")
+        } else {
+            println("no hay ningun box disponible")
+        }
+
+        println("Registro para entrada")
+
+        val entrada = launch {
+            gestor.registrarEntrada(paciente)
+        }
+
+        println("el registro ha sido solicitado ya puede continuar")
+
+        entrada.join()
+
+        gestor.mostrarBoxes()
+        println("Boxes disponibles en este momento: ${gestor.disponibilidades()}")
+
+        println("Registro de salida")
+
+        val salida = launch {
+            gestor.registrarSalida(
+                codigoAtencion = paciente.codigoAtencion,
+                minutosAtencion = 75
+            )
+        }
+
+        salida.join()
+
+        gestor.mostrarBoxes()
+        println("Los boxes disponibles al finalizar: ${gestor.disponibilidades()}")
+
+        TurnoReporte.mostrar(gestor)
 
     }   catch ( error: IllegalArgumentException){
         println("Error de los datos: ${error.message}")

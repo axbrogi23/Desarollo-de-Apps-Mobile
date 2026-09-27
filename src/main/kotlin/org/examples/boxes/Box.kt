@@ -19,8 +19,8 @@ class Box (
             EstadoBox.Libre -> "Libre"
 
             is EstadoBox.EnAtencion ->
-                "En atencion ${estadoActual.paciente.nombre}" +
-                "${estadoActual.paciente.codigoAtencion})"
+                "En atencion: ${estadoActual.paciente.nombre} " +
+                "(${estadoActual.paciente.codigoAtencion})"
 
             is EstadoBox.EnProceso -> "En proceso: ${estadoActual.motivo}"
 
