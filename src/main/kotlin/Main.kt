@@ -60,6 +60,35 @@ fun main() {
         println("Shakira Tardo 20 minutos: $totalFelino2")
         println("Pato mandarin Tardo 120 minutos: $totalExotico")
 
+        //probando los cuatro estados.
+        println("---Prueba de estados del box---")
+
+        val PruebaBox = Box(numero = 1)
+
+        //1. Libre es el estado inicial
+        println(PruebaBox.obtenerDetalle())
+
+        //2 en proceso
+        PruebaBox.estado = EstadoBox.EnProceso(
+            motivo = "Resgistrando entrada"
+        )
+        println(PruebaBox.obtenerDetalle())
+
+        //3 en atencion
+        PruebaBox.estado = EstadoBox.EnAtencion(
+            paciente = paciente
+        )
+        println(PruebaBox.obtenerDetalle())
+
+        //simular el termino de atencion para quedar libre
+        PruebaBox.estado = EstadoBox.Libre
+        println(PruebaBox.obtenerDetalle())
+
+        //4. obtener si esta fuera de servicio
+        PruebaBox.estado = EstadoBox.FueraServicio(
+            motivo = "Mantenimiento del sistema"
+        )
+        println(PruebaBox.obtenerDetalle())
 
     }   catch ( error: IllegalArgumentException){
         println("Error de los datos: ${error.message}")
